@@ -1,0 +1,209 @@
+//ques 1
+
+int threeSumClosest(vector<int>& nums, int target) {
+        int n = nums.size();
+        int answer = nums[0]+nums[1]+nums[n-1];
+        sort(nums.begin(),nums.end());
+        for(int i=0; i<n-2; i++){
+            int lefty = i+1;
+            int righty = n-1;
+            while(lefty < righty){
+                int currAnswer = nums[i]+nums[lefty]+nums[righty];
+                if(currAnswer > target){
+                    righty--;
+                }
+                else{
+                    lefty++;
+                }
+
+                if(abs(currAnswer - target) < abs(answer - target)){
+                    answer = currAnswer;
+                }
+            }
+        }
+        return answer;
+    }
+
+
+//ques 2
+
+vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        vector<vector<int>> ans;
+        sort(nums.begin(), nums.end());
+        for(int i = 0; i< nums.size(); i++){
+            if(i>0 && nums[i] == nums[i-1]) continue;
+            for(int j = i+1; j< nums.size(); j++){
+                if(j> i+1 && nums[j] == nums[j-1]) continue;
+                int k = j+1;
+                int l = nums.size() - 1;
+                while(k<l){
+                    long long sum = nums[i];
+                    sum += nums[j];
+                    sum += nums[k];
+                    sum += nums[l];
+                    if(sum == target){
+                        vector <int> temp = {nums[i], nums[j], nums[k], nums[l]};
+                        ans.push_back(temp);
+                        k++;
+                        l--;
+                        while(k<l && nums[k] == nums[k-1]) k++;
+                        while(k<l && nums[l] == nums[l+1]) l--;
+                    }
+                    else if(sum > target) l--;
+                    else k++;
+                }
+            }
+        }
+        return ans;
+    }
+
+
+
+//ques 3
+
+void nextPermutation(vector<int>& nums) {
+        int size = nums.size();
+        int idx = size-1;
+        while(idx >0) {
+            if(nums[idx-1] < nums[idx]) {
+
+                int jdx = idx+1;
+                while(jdx < size && nums[idx-1]< nums[jdx]) 
+                    jdx++;
+                swap(nums[idx-1], nums[jdx-1]);
+                break;
+            }
+            --idx;
+        }
+        reverse(nums.begin()+idx,nums.end());
+        return;
+    }
+
+
+//ques 4
+
+int searchInsert(vector<int>& nums, int target) {
+        int s=0;
+        int e=nums.size();
+        int mid= s+(e-s)/2;
+
+        while(s<e){
+            mid= s+(e-s)/2;
+            if(nums[mid]<target){
+                s=mid+1;
+            }
+            else{
+                e=mid;
+            }
+        }
+
+        return e;
+    }
+
+
+//ques 5
+
+vector<int> plusOne(vector<int>& v) {
+        int n = v.size();
+        for(int i=n-1; i>=0; i--){
+            if(v[i]<9){
+                ++v[i];
+                return v;
+            }else{
+                v[i] = 0;
+            }
+        }
+
+        v.push_back(0);     
+        v[0] = 1;
+        return v;
+    }
+
+
+//ques 6
+
+vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> Res;
+        
+        if(nums.size() < 1)
+           return Res;
+        
+        for(int i=0;i<nums.size();)
+        {
+            int low=i;
+            int high=i;
+            
+            while(high+1 < nums.size() && nums[high+1] == nums[high]+1)
+                high++;
+            
+            if(high > low)
+                Res.push_back(to_string(nums[low]) + "->" + to_string(nums[high]));
+            
+            else
+                Res.push_back(to_string(nums[high]));
+            
+            i=high+1;
+            
+        }  
+        
+        return Res;
+
+    }
+
+
+//ques 7
+
+vector<string> summaryRanges(vector<int>& nums) {
+        vector<string> Res;
+        
+        if(nums.size() < 1)
+           return Res;
+        
+        for(int i=0;i<nums.size();)
+        {
+            int low=i;
+            int high=i;
+            
+            while(high+1 < nums.size() && nums[high+1] == nums[high]+1)
+                high++;
+            
+            if(high > low)
+                Res.push_back(to_string(nums[low]) + "->" + to_string(nums[high]));
+            
+            else
+                Res.push_back(to_string(nums[high]));
+            
+            i=high+1;
+            
+        }  
+        
+        return Res;
+
+    }
+
+
+//ques 8
+
+int minMeetingRooms(int[][] intervals) {
+        int[] starts = new int[intervals.length];
+        int[] ends = new int[intervals.length];
+        for(int i=0; i<intervals.length; i++) 
+        {
+            starts[i] = intervals[i][0];
+            ends[i] = intervals[i][1];
+        }
+        
+        Arrays.sort(starts);
+        Arrays.sort(ends);
+        
+        int rooms = 0;
+        int endsItr = 0;
+        for(int i=0; i<starts.length; i++) 
+        {
+            if(starts[i]<ends[endsItr])
+                rooms++;
+            else
+                endsItr++;
+        }
+        return rooms;
+    }

@@ -1,0 +1,164 @@
+//ques 1
+
+int countOfNodes(struct Node* head)
+{
+    int count = 0;
+    while (head != NULL) {
+        head = head->next;
+        count++;
+ }
+    return count;
+}
+  
+
+struct Node* deleteMid(struct Node* head)
+{
+   
+    if (head == NULL)
+        return NULL;
+    if (head->next == NULL) {
+        delete head;
+        return NULL;
+    }
+    struct Node* copyHead = head;
+    
+    int count = countOfNodes(head);
+    
+    int mid = count / 2;
+    
+    while (mid-- > 1)
+        head = head->next;
+    
+    head->next = head->next->next;
+    return copyHead;
+}
+
+
+//ques 2
+
+int detectLoop(Node* list)
+{
+    Node *slow_p = list, *fast_p = list;
+ 
+    while (slow_p && fast_p && fast_p->next) {
+        slow_p = slow_p->next;
+        fast_p = fast_p->next->next;
+        if (slow_p == fast_p) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+//ques 3
+
+
+int printNthFromLast(struct Node* head, int N)
+{
+    static int i = 0;
+    if (head == NULL)
+        return -1;
+    printNthFromLast(head->next, N);
+    if (++i == N)
+        return head->data;
+}
+
+
+//ques 4
+bool isPalin(Node* head){    
+    Node* slow = head;
+    stack<int> s;
+
+    while (slow != NULL) {
+        s.push(slow->data);
+        slow = slow->ptr;
+    }
+
+    while (head != NULL) {
+        int i = s.top();
+        s.pop();
+	if (head->data != i) {
+            return false;
+        } 
+        head = head->ptr;
+    } 
+    return true;
+}
+
+//ques 5
+
+void removeLoop(Node* head){
+      Node *temp=head,*prev=NULL;
+      unordered_map<Node*,bool>mp;
+      while(temp!=NULL){
+          if(mp[temp]==true){
+              prev->next=NULL;
+              break;
+          }
+          mp[temp]=true;
+          prev=temp;
+          temp=temp->next;
+      }
+
+
+//ques 6
+
+void skipMdeleteN(Node *head, int M, int N) 
+{ 
+    Node *curr = head, *t; 
+    int count; 
+  
+    while (curr) {         
+        for (count = 1; count < M && curr!= NULL; count++) 
+            curr = curr->next; 
+          
+        if (curr == NULL) 
+            return;   
+        
+        t = curr->next; 
+        for (count = 1; count<=N && t!= NULL; count++){ 
+            Node *temp = t; 
+            t = t->next; 
+            free(temp); 
+        }         
+        curr->next = t;        
+        curr = t; 
+    } 
+}
+
+//ques 7
+
+void merge(Node *p, Node **q) 
+{ 
+    Node *p_curr = p, *q_curr = *q; 
+    Node *p_next, *q_next; 
+    while (p_curr != NULL && q_curr != NULL) 
+    { 
+       
+        p_next = p_curr->next; 
+        q_next = q_curr->next; 
+  
+       
+        q_curr->next = p_next; 
+        p_curr->next = q_curr; 
+  
+        p_curr = p_next; 
+        q_curr = q_next; 
+    } 
+  
+    *q = q_curr; 
+} 
+
+
+//ques 8
+
+bool isCircular(struct Node *head)
+{
+    
+    if (head == NULL)
+       return true;  
+    struct Node *node = head->next;  
+    while (node != NULL && node != head)
+       node = node->next;   
+    return (node == head);
+}

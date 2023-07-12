@@ -1,0 +1,170 @@
+//ques 1
+
+vector<vector<int>> construct2DArray(vector<int>& original, int m, int n) {
+        int size=original.size();
+        if(m*n!=size)
+        {
+            return {};
+        }
+        vector<vector<int>>ans(m,vector<int>(n));
+        int col=0,row=0;
+        for(int i=0;i<size;i++)
+        {
+            if(col<n)
+            {
+                ans[row][col]=original[i];
+                col+=1;
+            }
+            if(col==n)
+            {
+                row+=1;
+                col=0;
+            }
+
+        }
+        return ans;
+    }
+
+//ques 2
+
+int arrangeCoins(int n) 
+    {
+        return (-1+sqrt(1.0+4.0*2.0*n))/2;
+    }
+
+
+//ques 3
+
+vector<int> sortedSquares(vector<int>& nums) {
+
+    vector<int> one ; 
+    for(int i=0 ; i<nums.size() ; i++){
+        int num = nums[i];
+        one.push_back(num*num);
+  }
+
+         sort(one.begin(),one.end());
+    return one ; 
+}
+
+
+//ques 4
+
+vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        int n1 = nums1.size(),n2 = nums2.size();
+        set<int> ans1, ans2;
+        int i = 0 ,j = 0;
+        vector<int>v1,v2;
+        
+        unordered_map<int, int> m;
+        unordered_map<int, int> m1;
+        
+         while(i < n1 || j < n2) {
+            if( i < n1 ) m[nums1[i++]]++;    
+            if( j < n2 ) m1[nums2[j++]]++;
+        }
+
+        i  = 0 ,j = 0;
+         while(i < n1 || j < n2) {
+            if( i < n2  && m[nums2[i]] == 0) ans2.insert (nums2[i]);    
+            if( j < n1 && m1[nums1[j]] == 0) ans1.insert(nums1[j]);
+            i++;
+            j++;
+        }
+
+
+        for(auto i : ans1) v1.push_back(i);
+        for(auto i : ans2) v2.push_back(i);
+
+        return {v1, v2};
+
+    }
+
+
+//ques 5
+
+int findTheDistanceValue(vector<int>& arr1, vector<int>& arr2, int d) {
+        sort(arr2.begin(), arr2.end());
+        
+        
+        int count=0,low,high;
+        for(auto x:arr1){
+            
+            low= x-d, high= x+d;
+            
+            
+            auto l= lower_bound(arr2.begin(), arr2.end(),low);
+            auto h= lower_bound(arr2.begin(), arr2.end(),high);
+            
+        
+            if(l==h && (*l != low && *l != high)) count++;
+        }
+        
+        return count;
+    }
+
+
+//ques 6
+
+vector<int> findDuplicates(vector<int>& nums) {
+        set<int> s, s1;
+        vector<int> v;
+        for(int i = 0; i < nums.size(); ++i) {
+            if(s.find(nums[i]) != s.end()) {
+                v.push_back(nums[i]);
+            }
+            s.insert(nums[i]);
+        }
+        for(auto ele:s1) {
+            v.push_back(ele);
+        }
+        return v;
+    }
+
+
+//ques 7
+
+int findMin(vector<int>& nums) {
+        //using log n algo(binary search)
+
+        int low=0;
+        int high=nums.size()-1;
+        int ans=INT_MAX;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(nums[mid]>=nums[low]){// means left half is sorted
+                ans=min(ans,nums[low]);  //storing the minimum 
+                low=mid+1; //eleminating left half
+            }
+            else{ //else right half is sorted
+                ans=min(ans,nums[mid]);// storing the minimum
+                high=mid-1;
+            }
+        }
+        return ans;
+    }
+
+
+//ques 8
+
+vector<int> findOriginalArray(vector<int>& changed) {
+        if(changed.size()&1){return {};}
+        sort(changed.begin(), changed.end());
+        vector<int>ans;
+        unordered_map<int, int>m;
+        for(int i=0; i<changed.size(); i++){
+            m[changed[i]]++;
+        }
+        for(int i=0; i<changed.size(); i++){
+            if(m[changed[i]]==0){
+                continue;
+            }
+            m[changed[i]]--;
+            if(m[changed[i]*2]==0){
+                return {};
+            }
+            m[changed[i]*2]--;
+            ans.push_back(changed[i]);
+        }
+        return ans;
+    }

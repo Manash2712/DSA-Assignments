@@ -1,0 +1,116 @@
+//ques 1
+
+vector<int> arraysIntersection(vector<int>& A, vector<int>& B, vector<int>& C) {
+        int i = 0, j = 0, k = 0, R = A.size(), S = B.size(), T = C.size();
+        vector<int> ans;
+        while (i < R && j < S && k < T) {
+            int a = A[i], b = B[j], c = C[k];
+            if (a == b && b == c) {
+                ans.push_back(a);
+                ++i, ++j, ++k;
+            } else {
+                int mx = max({ a, b, c });
+                if (a < mx) ++i;
+                if (b < mx) ++j;
+                if (c < mx) ++k;
+            }
+        }
+        return ans;
+    }
+
+//ques 2
+
+ vector<vector<int>> findDifference(vector<int>& nums1, vector<int>& nums2) {
+        unordered_set<int> set1(nums1.begin(), nums1.end()), set2(nums2.begin(), nums2.end());
+        vector<int> temp1, temp2;
+        for (int i : set1) {
+            if (set2.count(i) == 0) {
+                temp1.push_back(i);
+            }
+        }
+
+        for (int i : set2) {
+            if (set1.count(i) == 0) {
+                temp2.push_back(i);
+            }
+        }
+        return {temp1, temp2};
+    }
+
+
+//ques 3
+
+ vector<vector<int>> transpose(vector<vector<int>>& matrix) {
+        int m = matrix.size();
+        int n = matrix[0].size(); 
+        vector<vector<int>> transposed(n, vector<int>(m));
+    
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                transposed[j][i] = matrix[i][j];
+            }
+        }
+        
+        return transposed;
+    }
+
+
+//ques 4
+
+int arrayPairSum(vector<int>& nums) {
+        int result = 0;
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); i += 2) {
+           result += nums[i]; 
+        }
+        return result;
+    }
+
+
+//ques 5
+
+int arrangeCoins(int n) 
+    {
+        return (-1+sqrt(1.0+4.0*2.0*n))/2;
+    }
+
+
+//ques 6
+
+vector<int> sortedSquares(vector<int>& nums) {
+
+    vector<int> one ; 
+    for(int i=0 ; i<nums.size() ; i++){
+        int num = nums[i];
+        one.push_back(num*num);
+  }
+
+         sort(one.begin(),one.end());
+    return one ; 
+}
+
+
+//ques 7
+
+int maxCount(int m, int n, vector<vector<int>>& ops) {
+        int x = m, y = n;
+        for (auto i: ops) {
+            x = min(x, i[0]);
+            y = min(y, i[1]);
+        }
+
+        return x*y;
+    }
+
+
+//ques 8
+
+vector<int> shuffle(vector<int>& nums, int n) {
+        
+        vector<int>ans;
+        for(int i=0;i<n;i++){
+            ans.push_back(nums[i]);
+            ans.push_back(nums[i+n]);
+        }
+        return ans;
+    }

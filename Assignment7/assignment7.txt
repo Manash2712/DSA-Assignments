@@ -1,0 +1,166 @@
+//ques 1
+
+bool isIsomorphic(string s, string t) {
+        if(s.size() != t.size()){
+            return 0;
+        }
+        unordered_map<char,int> mp1;
+        unordered_map<char,int> mp2;
+
+        for(int i=0;i<s.size();i++){
+            mp1[s[i]] += i; 
+        }
+        for(int i=0;i<t.size();i++){
+            mp2[t[i]] += i; 
+        }
+
+        for(int i=0;i<s.size();i++){
+            if(mp1[s[i]]!=mp2[t[i]]){
+                return false;
+            }
+        }
+        return true;
+   }
+
+//ques 2
+
+public boolean isStrobogrammatic(String num) {
+        int[] d = new int[] {0, 1, -1, -1, -1, -1, 9, -1, 8, 6};
+        for (int i = 0, j = num.length() - 1; i <= j; ++i, --j) {
+            int a = num.charAt(i) - '0', b = num.charAt(j) - '0';
+            if (d[a] != b) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+// ques 3
+
+string addStrings(string num1, string num2) {
+        string ans;
+        int n = max(num1.size(), num2.size()), t = 0;
+        reverse(num1.begin(), num1.end());
+        reverse(num2.begin(), num2.end());
+        for(int i=0; i<n; i++) {
+            if(i >= num1.size()) t += num2[i] - '0';
+            else if(i >= num2.size()) t += num1[i] - '0';
+            else t += (num1[i]-'0') + (num2[i]-'0');
+            ans += t % 10 + '0';
+            t /= 10;
+        }
+        if(t) ans += t + '0';
+        reverse(ans.begin(), ans.end());
+        return ans;
+    }
+
+
+//ques 4
+
+string reverseWords(string s) {
+    int l=(int)s.size();
+    int last_space =-1;
+    int i, j, start,e;
+    for(i=0;i<=l;i++){
+        if(s[i] == ' ' || i == l){
+            start=last_space + 1;
+            e=i-1;
+            while(start<e){ 
+            swap(s[start++],s[e--]);
+        }
+        last_space = i;
+        }
+
+    }
+    return s;
+    }
+
+
+//ques 5
+
+string reverseStr(string s, int k) {
+        int n=s.length();
+        for( int i=0 ; i<n ; i+=2*k ){
+            
+            string str = s.substr(i,k);
+            reverse(str.begin(),str.end());
+            s.replace(i,k,str);
+        }
+        return s;
+}
+
+//ques 6
+
+bool rotateString(string s, string goal) {
+        int l1=s.length();
+        int i=0;
+        bool ans=false;
+        char temp=' ';
+        if(s==goal)
+        return true;
+
+        for(i=1;i<l1;i++)
+        {
+            temp=s[0];
+            s=s.substr(1,l1)+temp;
+            if(s==goal)
+            {
+            ans=true;
+            break;
+            }
+        }
+        return ans;
+    }
+
+//ques 7
+
+bool backspaceCompare(string s, string t) {
+        string sc,tc;
+        for(int i=0;i<s.size();i++){
+            if(s[i]>='a' && s[i]<='z'){
+                sc.push_back(s[i]);
+            }
+            else{
+                if(sc.empty()) continue;
+                sc.pop_back();
+            }
+        }
+        for(int i=0;i<t.size();i++){
+            if(t[i]>='a' && t[i]<='z'){
+                 tc.push_back(t[i]);
+            }
+            else{
+                if(tc.empty()) continue;
+                 tc.pop_back();
+            }
+        }
+        if(sc == tc) return 1;
+        else return 0;
+    }
+
+//ques 8
+
+bool checkStraightLine(vector<vector<int>>& coordinates) {
+        int size = coordinates.size();
+
+        int xdiff = (coordinates[1][0]-coordinates[0][0]);
+        int ydiff = (coordinates[1][1]-coordinates[0][1]);
+
+        for(int i = 2; i < size;i++)
+        {
+           
+            int curr_xdiff = (coordinates[i][0] - coordinates[i-1][0]);
+            int curr_ydiff = (coordinates[i][1] - coordinates[i-1][1]);
+            
+        
+            if(xdiff*curr_ydiff != ydiff *curr_xdiff)
+            {
+                
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
+

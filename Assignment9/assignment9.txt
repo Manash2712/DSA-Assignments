@@ -1,0 +1,88 @@
+//ques1
+
+bool isPowerOfTwo(int n) {
+        if(n==0) 
+            return false;
+        while(n%2==0) 
+            n/=2;
+        return n==1;
+    }
+
+//ques 2
+
+int findSum(int n)
+{
+   if (n % 2 == 0)       
+      return (n / 2) * 1LL * (n + 1);
+   else         
+      return  ((n + 1) / 2) * 1LL * n;
+}
+
+
+//ques 3
+
+long long int factorial(int n){
+        if(n==0){
+            return 1;
+        }
+        else{
+            return n*factorial(n-1);
+        }        
+    }
+
+
+//ques 4
+
+int calculatePower(int base, int powerRaised)
+{
+    if (powerRaised != 0)
+        return (base*calculatePower(base, powerRaised-1));
+    else
+        return 1;
+}
+
+
+//ques 5
+
+int findMaxRec(int A[], int n)
+{
+    // if n = 0 means whole array has been traversed
+    if (n == 1)
+        return A[0];
+    return max(A[n-1], findMaxRec(A, n-1));
+}
+
+//ques 6
+
+int Nth_of_AP(int a, int d, int N)
+{
+    return (a + (N - 1) * d);     
+}
+
+
+//ques 7
+
+void permute(string& a, int l, int r)
+{
+    if (l == r)
+        cout << a << endl;
+    else {
+        for (int i = l; i <= r; i++) {
+            swap(a[l], a[i]);
+            permute(a, l + 1, r);
+ 
+
+            swap(a[l], a[i]);
+        }
+    }
+}
+
+
+//ques 8
+int product(int ar[], int n)
+{
+    int result = 1;
+    for (int i = 0; i < n; i++)
+        result = result * ar[i];
+    return result;
+}

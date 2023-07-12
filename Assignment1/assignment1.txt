@@ -1,0 +1,112 @@
+//ASSIGNMENT 1
+
+
+//QUES 1
+function keysum(arr, n, key) {
+    let l, r;
+    arr.sort((a, b) => a - b);
+    l = 0;
+    r = n - 1;
+    while (l < r) {
+        if (arr[l] + arr[r] === key)
+            return [l, r];
+        else if (arr[l] + arr[r] < key)
+            l++;
+        else
+            r--;
+    }
+    return [0, 0];
+}
+
+const arr = [2, 7, 11, 15];
+const n = 4;
+const k = 9;
+const ans = keysum(arr, n, k);
+console.log(ans[0], ans[1]);
+
+//ques 2
+
+function removeElement(nums, val) {
+    let j = 0;
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] !== val) {
+            nums[j++] = nums[i];
+        }
+    }
+    return j;
+}
+
+let arr = [3, 2, 2, 3];
+let k = 2;
+let ans = removeElement(arr, k);
+console.log(ans);
+
+
+
+//ques 3
+function search(nums, target) {
+    let s = 0;
+    let e = nums.length;
+    let mid = s + Math.floor((e - s) / 2);
+    while (s < e) {
+        mid = s + Math.floor((e - s) / 2);
+        if (nums[mid] < target) {
+            s = mid + 1;
+        } else {
+            e = mid;
+        }
+    }
+    return e;
+}
+
+let arr = [1, 2, 7, 9];
+let k = 5;
+let ans = search(arr, k);
+console.log(ans);
+
+
+//ques 4
+
+
+function plusOne(v) {
+    let n = v.length;
+    for (let i = n - 1; i >= 0; i--) {
+        if (v[i] < 9) {
+            ++v[i];
+            return v;
+        } else {
+            v[i] = 0;
+        }
+    }
+    v.push(0);
+    v[0] = 1;
+    return v;
+}
+
+let arr = [1, 2, 3];
+let ans = plusOne(arr);
+for (let i = 0; i < ans.length; i++) {
+    console.log(ans[i] + " ");
+}
+
+
+//ques 5
+
+function merge(nums1, m, nums2, n) {
+    let left = m - 1;
+    let right = 0;
+    while (left >= 0 && right < n) {
+        if (nums1[left] > nums2[right]) {
+            [nums1[left], nums2[right]] = [nums2[right], nums1[left]];
+            left--;
+            right++;
+        } else {
+            break;
+        }
+    }
+    nums1.splice(m, n, ...nums2.slice(0, n));
+    nums1.sort((a, b) => a - b);
+}
+
+
+
